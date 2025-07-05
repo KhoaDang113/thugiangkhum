@@ -2,11 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
-
 export default function Component() {
   const [showAnimation, setShowAnimation] = useState(true);
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const navigate = useNavigate();
   const captureRef = useRef(null);
 
@@ -43,14 +40,6 @@ export default function Component() {
 
   const handleCapture = async () => {
     navigate("/Haha");
-  };
-
-  const handleDownload = () => {
-    if (!capturedImage) return;
-    const link = document.createElement("a");
-    link.href = capturedImage;
-    link.download = "ky-niem.png";
-    link.click();
   };
 
   return (
@@ -150,27 +139,6 @@ export default function Component() {
             Chơi lại đi Tẽn
           </Link>
         </div>
-
-        {/* 👇 Hiển thị ảnh chụp nếu có */}
-        {capturedImage && (
-          <div className="mt-8 text-center">
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              Ảnh kỷ niệm của bạn
-            </h3>
-            <img
-              src={capturedImage}
-              alt="Preview"
-              className="mx-auto rounded-2xl border-4 border-white shadow-lg max-w-full"
-            />
-            <button
-              onClick={handleDownload}
-              className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-xl shadow-lg transition"
-            >
-              📥 Tải về
-            </button>
-          </div>
-        )}
-
         <div className="mt-8 text-3xl space-x-2">
           <span
             className="inline-block animate-spin"
@@ -221,7 +189,7 @@ export default function Component() {
         🎊
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes floatUp {
           0% {
             transform: translateY(0) rotate(0deg);

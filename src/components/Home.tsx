@@ -4,13 +4,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Component() {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showResult, setShowResult] = useState(false);
   const [noBtnPos, setNoBtnPos] = useState<{ top: number; left: number }>({
     top: 0,
     left: 0,
   });
-  const [showNoBtn, setShowNoBtn] = useState(true);
   const [toHidden, setToHidden] = useState(0);
   const navigate = useNavigate();
 
@@ -73,33 +70,31 @@ export default function Component() {
             <div className="hidden sm:block text-lg">Có</div>
           </button>
 
-          {showNoBtn && (
-            <button
-              onClick={() => {
-                moveNoBtn();
-                handleShowText();
-              }}
-              onMouseEnter={moveNoBtn}
+          <button
+            onClick={() => {
+              moveNoBtn();
+              handleShowText();
+            }}
+            onMouseEnter={moveNoBtn}
+            style={{
+              position: "absolute",
+              top: noBtnPos.top,
+              left: noBtnPos.left,
+              transition: "top 1s ease, left 1s ease",
+            }}
+            className="w-12 h-12 items-center sm:w-24 sm:h-24 bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-110 hover:shadow-xl active:scale-95"
+          >
+            <span className="text-xl">✗</span>
+            <div className="hidden sm:block text-lg">Không</div>
+            <span
+              className="absolute bottom-[-50px] left-[-100px] text-center text-nowrap text-black"
               style={{
-                position: "absolute",
-                top: noBtnPos.top,
-                left: noBtnPos.left,
-                transition: "top 1s ease, left 1s ease",
+                opacity: `${toHidden}`,
               }}
-              className="w-12 h-12 items-center sm:w-24 sm:h-24 bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-110 hover:shadow-xl active:scale-95"
             >
-              <span className="text-xl">✗</span>
-              <div className="hidden sm:block text-lg">Không</div>
-              <span
-                className="absolute bottom-[-50px] left-[-100px] text-center text-nowrap text-black"
-                style={{
-                  opacity: `${toHidden}`,
-                }}
-              >
-                Nhấn không có được đâu đừng có cố 🤣
-              </span>
-            </button>
-          )}
+              Nhấn không có được đâu đừng có cố 🤣
+            </span>
+          </button>
         </div>
       </div>
     </div>
